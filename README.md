@@ -44,7 +44,7 @@ Main objectives:
 
 1. **Clone Repository**
 
-Go into an IDE of your choice and paste the following into your terminal (into your desired path):
+Open a terminal in your desired project directory and run:
 
 ```bash
 git clone https://github.com/Loender/Book-Exchange.git
