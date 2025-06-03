@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.geometry.*?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
+        <?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab12dub2.controller.MainController">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- Database Connection Controls -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="connectButton" text="Connect to Database" onAction="#connectToDatabase" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button fx:id="disconnectButton" text="Disconnect from Database" onAction="#disconnectFromDatabase" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+        <Button fx:id="logoutButton" text="Logout" onAction="#logout" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+    </HBox>
+
+    <!-- TabPane -->
+    <TabPane fx:id="tabPane" prefHeight="600" prefWidth="800">
+        <!-- Manage Users Tab -->
+        <Tab fx:id="manageUsersTab" text="Manage Users" closable="false">
+            <VBox spacing="10">
+                <Text text="User Management" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <HBox spacing="10">
+                    <Label text="Select User:"/>
+                    <ComboBox fx:id="userComboBox" prefWidth="150"/>
+                </HBox>
+                <HBox spacing="10" fx:id="usernameBox" visible="false" managed="false">
+                    <Label text="Username:"/>
+                    <TextField fx:id="userUsernameField" prefWidth="150"/>
+                </HBox>
+                <HBox spacing="10" fx:id="emailBox" visible="false" managed="false">
+                    <Label text="Email:"/>
+                    <TextField fx:id="userEmailField" prefWidth="150"/>
+                </HBox>
+                <HBox spacing="10" fx:id="passwordBox" visible="false" managed="false">
+                    <Label text="Password:"/>
+                    <PasswordField fx:id="userPasswordField" prefWidth="150" promptText="Enter password..."/>
+                </HBox>
+                <HBox spacing="10" fx:id="firstNameBox" visible="false" managed="false">
+                    <Label text="First Name:"/>
+                    <TextField fx:id="userFirstNameField" prefWidth="150" promptText="Enter first name..."/>
+                </HBox>
+                <HBox spacing="10" fx:id="lastNameBox" visible="false" managed="false">
+                    <Label text="Last Name:"/>
+                    <TextField fx:id="userLastNameField" prefWidth="150" promptText="Enter last name..."/>
+                </HBox>
+                <HBox spacing="10" fx:id="phoneBox" visible="false" managed="false">
+                    <Label text="Phone:"/>
+                    <TextField fx:id="userPhoneField" prefWidth="150" promptText="Enter phone (optional)..."/>
+                </HBox>
+                <HBox spacing="10" fx:id="dateOfBirthBox" visible="false" managed="false">
+                    <Label text="Date of Birth:"/>
+                    <DatePicker fx:id="userDateOfBirthPicker" prefWidth="150" promptText="Select date..."/>
+                </HBox>
+                <HBox spacing="10">
+                    <Button fx:id="createUserButton" text="Create User" onAction="#toggleCreateUserFields" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                    <Button fx:id="updateUserButton" text="Update User" onAction="#showUpdateUserWindow" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                    <Button fx:id="deleteUserButton" text="Delete User" onAction="#deleteUser" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+                    <Button fx:id="showDetailsButton" text="Show Details" onAction="#showUserDetails" style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+                    <Button text="Clear" onAction="#clearUserFields"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="Search Users:"/>
+                    <TextField fx:id="userSearchField" prefWidth="150"/>
+                </HBox>
+                <TableView fx:id="userTable" prefHeight="200">
+                    <columns>
+                        <TableColumn fx:id="userUsernameColumn" text="Username" prefWidth="100"/>
+                        <TableColumn fx:id="userFirstNameColumn" text="First Name" prefWidth="100"/>
+                        <TableColumn fx:id="userLastNameColumn" text="Last Name" prefWidth="100"/>
+                        <TableColumn fx:id="userEmailColumn" text="Email" prefWidth="150"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+
+        <!-- Manage Books Tab -->
+        <Tab text="Manage Books" closable="false">
+            <VBox spacing="10">
+                <Text text="Book Management" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <HBox spacing="10" fx:id="titleBox" visible="false" managed="false">
+                    <Label text="Title:"/>
+                    <TextField fx:id="bookTitleField" prefWidth="150"/>
+                </HBox>
+                <HBox spacing="10" fx:id="authorBox" visible="false" managed="false">
+                    <Label text="Author:"/>
+                    <TextField fx:id="bookAuthorField" prefWidth="150"/>
+                </HBox>
+                <HBox spacing="10" fx:id="statusBox" visible="false" managed="false">
+                    <Label text="Status:"/>
+                    <ComboBox fx:id="bookStatusComboBox" prefWidth="150"/>
+                </HBox>
+                <HBox spacing="10" fx:id="ownerBox" visible="false" managed="false">
+                    <Label text="Owner:"/>
+                    <ComboBox fx:id="bookUserComboBox" prefWidth="150"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Button fx:id="createBookButton" text="Create Book" onAction="#toggleCreateBookFields" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                    <Button fx:id="updateBookButton" text="Update Book" onAction="#showUpdateBookWindow" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                    <Button fx:id="deleteBookButton" text="Delete Book" onAction="#deleteBook" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+                    <Button fx:id="readBookButton" text="Read Book" onAction="#readBook" style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+                    <Button fx:id="rateBookOwnerButton" text="Rate Owner" onAction="#rateBookOwner" style="-fx-background-color: #FF5722; -fx-text-fill: white;"/>
+                    <Button fx:id="messageBookOwnerButton" text="Message Owner" onAction="#messageBookOwner" style="-fx-background-color: #9C27B0; -fx-text-fill: white;"/>
+                    <Button fx:id="borrowBookButton" text="Borrow Book" onAction="#borrowBook" style="-fx-background-color: #009688; -fx-text-fill: white;"/>
+                    <Button fx:id="viewCommentsButton" text="View Comments" onAction="#viewComments" style="-fx-background-color: #3F51B5; -fx-text-fill: white;"/>
+                    <Button fx:id="returnBookButton" text="Return Book" onAction="#returnBook" />
+                    <Button text="Clear" onAction="#clearBookFields"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="Search Books:"/>
+                    <TextField fx:id="bookSearchField" prefWidth="150"/>
+                    <Label text="Filter by Status:"/>
+                    <ComboBox fx:id="bookStatusFilter" prefWidth="150"/>
+                </HBox>
+                <TableView fx:id="bookTable" prefHeight="200">
+                    <columns>
+                        <TableColumn fx:id="bookTitleColumn" text="Title" prefWidth="150"/>
+                        <TableColumn fx:id="bookAuthorColumn" text="Author" prefWidth="150"/>
+                        <TableColumn fx:id="bookStatusColumn" text="Status" prefWidth="100"/>
+                        <TableColumn fx:id="bookOwnerColumn" text="Owner" prefWidth="100"/>
+                    </columns>
+                </TableView>
+                <Button fx:id="viewHistoryButton" text="View Transaction History" onAction="#viewTransactionHistory" style="-fx-background-color: #607D8B; -fx-text-fill: white;"/>
+            </VBox>
+        </Tab>
+
+        <!-- Messages Tab -->
+        <Tab fx:id="messagesTab" text="Messages" closable="false">
+            <VBox spacing="10">
+                <Text text="Messages" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <SplitPane dividerPositions="0.3" prefHeight="500">
+                    <VBox spacing="5">
+                        <Label text="Conversations:"/>
+                        <ListView fx:id="conversationsListView" prefHeight="400"/>
+                    </VBox>
+                    <VBox spacing="10">
+                        <Label fx:id="conversationLabel" text="Select a user to view conversation"/>
+                        <ListView fx:id="messagesListView" prefHeight="400"/>
+                        <TextArea fx:id="messageInputArea" promptText="Type your message..." prefHeight="50"/>
+                        <Button fx:id="sendMessageButton" text="Send Message" onAction="#sendMessageInTab" style="-fx-background-color: #9C27B0; -fx-text-fill: white;" disable="true"/>
+                    </VBox>
+                </SplitPane>
+            </VBox>
+        </Tab>
+
+        <!-- Statistics Tab -->
+        <Tab text="Statistics" closable="false">
+            <VBox spacing="10">
+                <Text text="System Statistics" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label fx:id="totalUsersLabel" text="Total Users: 0"/>
+                <Label fx:id="totalBooksLabel" text="Total Books: 0"/>
+                <Label fx:id="totalAvailableBooksLabel" text="Total available books: 0"/>
+                <Label fx:id="totalBorrowedBooksLabel" text="Total borrowed books: 0"/>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.geometry.Insets?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<VBox spacing="10" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab12dub2.controller.CommentController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+    <Label fx:id="headerLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <TreeView fx:id="commentsTreeView" prefHeight="300.0" prefWidth="400.0"/>
+    <TextArea fx:id="commentArea" promptText="Enter your comment..." prefHeight="100.0" prefWidth="400.0"/>
+    <HBox spacing="10">
+        <Button fx:id="postCommentButton" text="Post Comment" onAction="#postComment" style="-fx-background-color: #3F51B5; -fx-text-fill: white;"/>
+        <Button fx:id="replyButton" text="Post Reply" onAction="#postReply" disable="true" style="-fx-background-color: #3F51B5; -fx-text-fill: white;"/>
+        <Button fx:id="clearButton" text="Clear" onAction="#clearCommentArea" style="-fx-background-color: #607D8B; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

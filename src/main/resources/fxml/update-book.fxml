@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.geometry.*?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
+        <?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab12dub2.controller.UpdateBookController" alignment="CENTER" spacing="15">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Text text="Update Book" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Title:"/>
+        <TextField fx:id="titleField" prefWidth="150" promptText="Enter book title..."/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Author:"/>
+        <TextField fx:id="authorField" prefWidth="150" promptText="Enter author..."/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Status:"/>
+        <ComboBox fx:id="statusComboBox" prefWidth="150"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Owner:"/>
+        <ComboBox fx:id="userComboBox" prefWidth="150"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="updateButton" text="Update" onAction="#update" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        <Button text="Cancel" onAction="#cancel" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

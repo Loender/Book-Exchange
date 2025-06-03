@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.geometry.*?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
+        <?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab12dub2.controller.RateUserController" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <Text text="Rate User" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <Label text="Rating (1-5):"/>
+    <Slider fx:id="ratingSlider" min="1" max="5" value="3"/>
+    <Label text="Comment:"/>
+    <TextArea fx:id="commentField" prefHeight="100" promptText="Enter your comment..."/>
+    <HBox spacing="10">
+        <Button fx:id="submitButton" text="Submit" onAction="#submitRating" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button text="Cancel" onAction="#cancel" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

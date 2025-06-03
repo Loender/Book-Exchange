@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.geometry.*?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
+        <?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab12dub2.controller.TransactionHistoryController" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <Text text="Transaction History" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <TableView fx:id="transactionTable" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="bookTitleColumn" text="Book Title" prefWidth="150"/>
+            <TableColumn fx:id="typeColumn" text="Type" prefWidth="100"/>
+            <TableColumn fx:id="otherUserColumn" text="Other User" prefWidth="150"/>
+            <TableColumn fx:id="dateColumn" text="Date" prefWidth="100"/>
+        </columns>
+    </TableView>
+    <Button text="Close" onAction="#close" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+</VBox>
