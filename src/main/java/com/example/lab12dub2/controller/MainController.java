@@ -629,7 +629,7 @@ public class MainController {
             }
             FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
             fxmlLoader.setControllerFactory(applicationContext::getBean);
-            Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+            Scene scene = new Scene(fxmlLoader.load(), 400, 400);
             UpdateUserController controller = fxmlLoader.getController();
             controller.setUser(selectedUser, this);
             Stage stage = new Stage();
