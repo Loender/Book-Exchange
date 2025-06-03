@@ -7,7 +7,7 @@ A Spring Boot + JavaFX application designed as a social media platform for book 
 This project serves as a study into building full-stack Java applications. It integrates a Spring Boot backend with a JavaFX-based desktop GUI.
 
 Main objectives:
-- Explore Spring Boot framework.
+- Explore the Spring Boot framework.
 - Integrate with a standalone MySQL database.
 - Apply secure development practices using Spring Security for authentication and access control.
 
@@ -67,15 +67,15 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 
 3. **Build the project**
 
-Once that is done, in the terminal, you will need to enter
+After configuring your database settings, build the project by running:
 ```bash
 mvn clean install
 ```
-
+> Make sure your MySQL server is running and properly configured before launching.
 4. **Run the application**
 
 
-And finally, you can safely run the project
+Once the build is complete, you can start the application with:
 ```bash
 mvn javafx:run
 ```
@@ -100,7 +100,7 @@ UI and functionality dynamically adapt based on user roles (e.g., admin vs. regu
 ### 🗨️ Messaging, rating, and comments system
 - Chat with other users
 - Leave ratings
-- Give feedback via comments, with an ability to reply
+- Give feedback via comments, with the ability to reply
 
 ### 💻 JavaFX Desktop Interface
 
