@@ -110,6 +110,15 @@ UI and functionality dynamically adapt based on user roles (e.g., admin vs. regu
 
 - Conditional visibility and interaction logic
 
+- - ## 🛤️ Roadmap
+
+TODO list for this application:
+
+- [x] Distribute logic appropriately between services
+- [ ] Implement Spring Security
+- [ ] Refactor the codebase for scalability and potential web deployment (RESTful design)
+- [ ] Improve exception handling and input validation
+
 ### 🛡️ Secure Password Handling
 All user passwords are securely hashed before being stored in the database.
 
@@ -119,5 +128,7 @@ Uses Spring Data JPA with Hibernate for persistence, schema management, and data
 ### 🚀 Spring Boot Integration
 Uses Spring Boot internally to manage application logic, data persistence (JPA), security, and configuration
 ## License
+
+
 
 [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
