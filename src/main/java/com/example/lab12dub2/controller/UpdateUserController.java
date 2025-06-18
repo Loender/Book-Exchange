@@ -1,7 +1,7 @@
 package com.example.lab12dub2.controller;
 
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class UpdateUserController {
 
     @Autowired
-    private BookExchangeService service;
+    private UserService service;
 
     private User user;
     private MainController mainController;

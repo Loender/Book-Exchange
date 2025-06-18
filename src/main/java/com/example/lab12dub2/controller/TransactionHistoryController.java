@@ -2,7 +2,7 @@ package com.example.lab12dub2.controller;
 
 import com.example.lab12dub2.model.Transaction;
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.TransactionService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class TransactionHistoryController {
 
     @Autowired
-    private BookExchangeService service;
+    private TransactionService service;
 
     private User user;
 

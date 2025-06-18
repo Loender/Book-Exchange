@@ -1,9 +1,10 @@
 package com.example.lab12dub2.controller;
 
 import com.example.lab12dub2.model.Book;
+import com.example.lab12dub2.model.Comment;
 import com.example.lab12dub2.model.Message;
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.*;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -36,7 +37,16 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private BookExchangeService service;
+    private BookService bookService;
+
+    @Autowired
+    private TransactionService transactionService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -601,7 +611,7 @@ public class MainController {
         }
 
         try {
-            service.createUser(username, email, password, firstName, lastName, phone, dateOfBirth, User.Role.USER);
+            userService.createUser(username, email, password, firstName, lastName, phone, dateOfBirth, User.Role.USER);
             refreshAll();
             clearUserFields();
             showCreateFields.set(false);
@@ -654,7 +664,7 @@ public class MainController {
             return;
         }
         try {
-            service.deleteUser(selectedUser.getUsername(), authenticatedUserProperty.get());
+            userService.deleteUser(selectedUser.getUsername(), authenticatedUserProperty.get());
             refreshAll();
             clearUserFields();
             showSuccessAlert("User deleted successfully.");
@@ -673,7 +683,7 @@ public class MainController {
             showErrorAlert("Please select a user.");
             return;
         }
-        User userWithBooks = service.getUserWithBooks(selectedUser.getUsername());
+        User userWithBooks = userService.getUserWithBooks(selectedUser.getUsername());
         if (userWithBooks == null) {
             showErrorAlert("User not found.");
             return;
@@ -735,7 +745,7 @@ public class MainController {
         User selectedUser = bookUserComboBox.getSelectionModel().getSelectedItem();
 
         try {
-            service.createBook(title, author, status, selectedUser.getUsername());
+            bookService.createBook(title, author, status, selectedUser.getUsername());
             refreshAll();
             clearBookFields();
             showCreateBookFields.set(false);
@@ -793,7 +803,7 @@ public class MainController {
         alert.setContentText("Title: " + selectedBook.getTitle() + "\nAuthor: " + selectedBook.getAuthor() + "\nStatus: " + selectedBook.getStatus());
         alert.showAndWait();
         // Record the transaction
-        service.createTransaction(selectedBook, authenticatedUserProperty.get(), "READ");
+        transactionService.createTransaction(selectedBook, authenticatedUserProperty.get(), "READ");
     }
     @FXML
     private void deleteBook() {
@@ -807,7 +817,7 @@ public class MainController {
             return;
         }
         try {
-            service.deleteBook(selectedBook.getTitle(), selectedBook.getAuthor(), authenticatedUserProperty.get());
+            bookService.deleteBook(selectedBook.getTitle(), selectedBook.getAuthor(), authenticatedUserProperty.get());
             refreshAll();
             showSuccessAlert("Book deleted successfully.");
         } catch (IllegalArgumentException e) {
@@ -866,7 +876,7 @@ public class MainController {
         }
         try {
             // Send an initial message to ensure the owner is added to conversations
-            service.sendMessage(authenticatedUserProperty.get(), selectedBook.getUser(), "Hello! I'm interested in your book: " + selectedBook.getTitle());
+            messageService.sendMessage(authenticatedUserProperty.get(), selectedBook.getUser(), "Hello! I'm interested in your book: " + selectedBook.getTitle());
             refreshConversations();
 
             // Find the matching user in conversationsList by ID to handle Hibernate object equality
@@ -922,7 +932,7 @@ public class MainController {
         }
 
         try {
-            service.sendMessage(authenticatedUserProperty.get(), selectedUser, content);
+            messageService.sendMessage(authenticatedUserProperty.get(), selectedUser, content);
             messageInputArea.clear();
             displayConversation(selectedUser);
             refreshConversations();
@@ -948,7 +958,7 @@ public class MainController {
         }
         try {
             // Update book status to Borrowed
-            service.updateBook(
+            bookService.updateBook(
                     borrow = true,
                     selectedBook.getTitle(),
                     selectedBook.getAuthor(),
@@ -959,7 +969,7 @@ public class MainController {
                     authenticatedUserProperty.get()
             );
             // Record the transaction
-            service.createTransaction(selectedBook, authenticatedUserProperty.get(), "BORROW");
+            transactionService.createTransaction(selectedBook, authenticatedUserProperty.get(), "BORROW");
 
             refreshAll();
             clearBookFields(); // Clear selection to avoid repeated actions
@@ -1043,9 +1053,9 @@ public class MainController {
         String searchText = userSearchField.getText().trim().toLowerCase();
         List<User> users;
         if (searchText.isEmpty()) {
-            users = service.getAllUsers(authenticatedUserProperty.get());
+            users = userService.getAllUsers();
         } else {
-            users = service.searchUsersByUsername(searchText, authenticatedUserProperty.get());
+            users = userService.searchUsersByUsername(searchText, authenticatedUserProperty.get());
         }
         userList.setAll(users);
     }
@@ -1058,9 +1068,9 @@ public class MainController {
         String selectedStatus = bookStatusFilter.getSelectionModel().getSelectedItem();
         List<Book> books;
         if (selectedStatus == null || selectedStatus.equals("All")) {
-            books = searchText.isEmpty() ? service.getAllBooks(authenticatedUserProperty.get()) : service.searchBooksByTitle(searchText, authenticatedUserProperty.get());
+            books = searchText.isEmpty() ? bookService.getAllBooks() : bookService.searchBooksByTitle(searchText);
         } else {
-            books = searchText.isEmpty() ? service.getBooksByStatus(selectedStatus, authenticatedUserProperty.get()) : service.searchBooksByTitleAndStatus(searchText, selectedStatus, authenticatedUserProperty.get());
+            books = searchText.isEmpty() ? bookService.getBooksByStatus(selectedStatus) : bookService.searchBooksByTitleAndStatus(searchText, selectedStatus);
         }
         bookList.setAll(books);
     }
@@ -1069,14 +1079,14 @@ public class MainController {
             userList.clear();
             return;
         }
-        userList.setAll(service.getAllUsers(authenticatedUserProperty.get()));
+        userList.setAll(userService.getAllUsers());
     }
     private void updateBookUserComboBox() {
         if (!isConnected.get()) {
             bookUserList.clear();
             return;
         }
-        bookUserList.setAll(service.getAllUsers(authenticatedUserProperty.get()));
+        bookUserList.setAll(userService.getAllUsers());
     }
     private void updateStatistics() {
         if (!isConnected.get()) {
@@ -1086,10 +1096,10 @@ public class MainController {
             totalBorrowedBooksLabel.setText("Total borrowed books: 0");
             return;
         }
-        long totalUsers = service.getTotalUsers(authenticatedUserProperty.get());
-        long totalBooks = service.getTotalBooks(authenticatedUserProperty.get());
-        long totalAvailableBooks = service.countBooksByStatus("Available");
-        long totalBorrowedBooks = service.countBooksByStatus("Borrowed");
+        long totalUsers = userService.getTotalUsers();
+        long totalBooks = bookService.getTotalBooks();
+        long totalAvailableBooks = bookService.countBooksByStatus("Available");
+        long totalBorrowedBooks = bookService.countBooksByStatus("Borrowed");
         totalUsersLabel.setText("Total Users: " + totalUsers);
         totalBooksLabel.setText("Total Books: " + totalBooks);
         totalAvailableBooksLabel.setText("Total Available books: " + totalAvailableBooks);
@@ -1108,7 +1118,7 @@ public class MainController {
             return;
         }
         try {
-            service.returnBook(selectedBook, authenticatedUserProperty.get());
+            bookService.returnBook(selectedBook, authenticatedUserProperty.get());
             refreshAll();
             showSuccessAlert("Book returned successfully.");
         } catch (IllegalStateException e) {
@@ -1120,11 +1130,11 @@ public class MainController {
     private void displayConversation(User otherUser) {
         System.out.println("Displaying conversation with: " + otherUser.getUsername());
         messagesList.clear();
-        List<Message> messages = service.getMessagesBetweenUsers(authenticatedUserProperty.get(), otherUser);
+        List<Message> messages = messageService.getMessagesBetweenUsers(authenticatedUserProperty.get(), otherUser);
         messagesList.addAll(messages);
 
         // Mark messages as read
-        service.markMessagesAsRead(otherUser, authenticatedUserProperty.get());
+        messageService.markMessagesAsRead(otherUser, authenticatedUserProperty.get());
 
         String displayName = authenticatedUserProperty.get().getRole() == User.Role.ADMIN ?
                 otherUser.getUsername() :
@@ -1145,7 +1155,7 @@ public class MainController {
         User selectedUser = conversationsListView.getSelectionModel().getSelectedItem();
 
         conversationsList.clear();
-        List<User> partners = service.getConversationPartners(authenticatedUserProperty.get());
+        List<User> partners = messageService.getConversationPartners(authenticatedUserProperty.get());
         conversationsList.addAll(partners);
 
         if (!partners.isEmpty()) {

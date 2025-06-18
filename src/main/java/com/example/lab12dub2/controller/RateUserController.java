@@ -1,7 +1,7 @@
 package com.example.lab12dub2.controller;
 
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.RatingService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class RateUserController {
 
     @Autowired
-    private BookExchangeService service;
+    private RatingService service;
 
     private User reviewer;
     private User reviewedUser;

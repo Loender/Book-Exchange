@@ -3,7 +3,7 @@ package com.example.lab12dub2.controller;
 import com.example.lab12dub2.model.Book;
 import com.example.lab12dub2.model.Comment;
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.CommentService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    private BookExchangeService service;
+    private CommentService service;
 
     private Book book;
     private User authenticatedUser;

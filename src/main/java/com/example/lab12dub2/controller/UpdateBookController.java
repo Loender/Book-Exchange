@@ -2,7 +2,8 @@ package com.example.lab12dub2.controller;
 
 import com.example.lab12dub2.model.Book;
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.BookService;
+import com.example.lab12dub2.service.UserService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,7 +20,9 @@ public class UpdateBookController {
     @FXML private ComboBox<User> userComboBox;
     @FXML private Button updateButton;
     @Autowired
-    private BookExchangeService service;
+    private UserService serviceUser;
+    @Autowired
+    private BookService serviceBook;
     private Book book;
     private MainController mainController;
     boolean borrow = true;
@@ -35,7 +38,7 @@ public class UpdateBookController {
 
         // Initialize ComboBoxes
         statusComboBox.setItems(FXCollections.observableArrayList("Available", "Borrowed"));
-        userComboBox.setItems(FXCollections.observableArrayList(service.getAllUsers(mainController.getAuthenticatedUser())));
+        userComboBox.setItems(FXCollections.observableArrayList(serviceUser.getAllUsers()));
         userComboBox.setConverter(new StringConverter<User>() {
             @Override
             public String toString(User user) {
@@ -63,7 +66,7 @@ public class UpdateBookController {
         String ownerUsername = selectedUser != null ? selectedUser.getUsername() : null;
 
         try {
-            service.updateBook(borrow, book.getTitle(), book.getAuthor(), title, author, status, ownerUsername, mainController.getAuthenticatedUser());
+            serviceBook.updateBook(borrow, book.getTitle(), book.getAuthor(), title, author, status, ownerUsername, mainController.getAuthenticatedUser());
             mainController.refreshAll();
             showSuccessAlert("Book updated successfully.");
             close();

@@ -2,7 +2,7 @@ package com.example.lab12dub2.controller;
 
 import com.example.lab12dub2.model.Rating;
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 public class UserDetailsController {
 
     @Autowired
-    private BookExchangeService service;
+    private RatingService service;
 
     private User selectedUser;
     private User authenticatedUser;

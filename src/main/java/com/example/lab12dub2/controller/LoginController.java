@@ -1,7 +1,7 @@
 package com.example.lab12dub2.controller;
 
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ import java.net.URL;
 @Controller
 public class LoginController {
 
-    @Autowired private BookExchangeService service;
+    @Autowired private AuthService service;
     @Autowired private ApplicationContext applicationContext;
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;

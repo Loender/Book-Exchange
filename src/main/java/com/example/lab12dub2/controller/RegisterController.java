@@ -1,7 +1,7 @@
 package com.example.lab12dub2.controller;
 
 import com.example.lab12dub2.model.User;
-import com.example.lab12dub2.service.BookExchangeService;
+import com.example.lab12dub2.service.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -38,7 +38,7 @@ public class RegisterController {
     private Button registerButton;
 
     @Autowired
-    private BookExchangeService service;
+    private UserService service;
 
     @FXML
     private void initialize() {
