@@ -126,7 +126,7 @@ All user passwords are securely hashed before being stored in the database.
 Uses Spring Data JPA with Hibernate for persistence, schema management, and data querying.
 
 ### 🚀 Spring Boot Integration
-Uses Spring Boot internally to manage application logic, data persistence (JPA), security, and configuration
+Uses Spring Boot internally to manage application logic and data persistence (JPA)
 ## License
 
 
